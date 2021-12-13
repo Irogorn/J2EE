@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:j="http://java.sun.com/jsp/jstl/core">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Commentaires de l'article <h:inputText
+		value="#{articlesBean.titleArticle}" /> />
+</title>
+</head>
+<body>
+	<ui:composition template="/resources/template/layout.xhtml">
+		<ui:define name="header">
+			<h:form>
+				<h:graphicImage library="images" name="ecommerce.png"
+					style="display: block; margin-left: auto; margin-right: auto"></h:graphicImage>
+				<h:panelGroup>
+					<h:panelGrid columns="6" cellspacing="8" cellpadding="0">
+						<h:commandLink value="Historique de commandes" />
+						<h:outputLabel value=""></h:outputLabel>
+						<h:commandLink value="Panier (#{cartBean.numberOfArticles})" />
+						<h:outputLabel value=""></h:outputLabel>
+						<h:commandLink action="#{loginBean.logout()}">
+							<h:outputLabel value="Se déconnecter"></h:outputLabel>
+						</h:commandLink>
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+			<h:form>
+				<h:dataTable var="commentary"
+					value="#{articlesBean.commentariesOfArticle}">
+					<h:column>
+						<f:facet name="header">Commentaires :</f:facet>
+						<h:outputLabel value="#{commentary.commentary}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">utilisateur :</f:facet>
+						<h:outputLabel value="#{commentary.user.prenom}" />
+					</h:column>
+				</h:dataTable>
+				<h:panelGroup>
+					<h:inputTextarea value="#{articlesBean.commentary}">
+						<f:validateLength minimum="5" maximum="150"></f:validateLength>
+					</h:inputTextarea>
+					<h:button value="Retour" outcome="gestion-achats.xhtml" />
+					<h:commandButton id="Validate" value="Valider" action="#{articlesBean.addCommentary()}" />
+				</h:panelGroup>
+
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Ajout d'article</title>
+</head>
+<body>
+	<h:form>
+		<h:panelGroup>
+			<h:panelGrid columns="3" cellspacing="8" cellpadding="0">
+				<h:outputLabel value="Nom :"></h:outputLabel>
+				<h:inputText id="nom"
+					value="#{articlesBean.newArticle.titreArticle}" required="true"
+					requiredMessage="Le nom est obligatoire" />
+				<h:message for="nom" style="color:red" />
+				<h:outputLabel value="Description :"></h:outputLabel>
+				<h:inputText id="description"
+					value="#{articlesBean.newArticle.description}" required="true"
+					requiredMessage="La description est obligatoire" />
+				<h:message for="description" style="color:red" />
+				<h:outputLabel value="Stock :"></h:outputLabel>
+				<h:inputText id="stock" value="#{articlesBean.newArticle.quantity}"
+					required="true" requiredMessage="Le stock est obligatoire" />
+				<h:message for="stock" style="color:red" />
+				<h:outputLabel value="Prix :"></h:outputLabel>
+				<h:inputText id="prix"
+					value="#{articlesBean.newArticle.prixArticle}" required="true"
+					requiredMessage="Le prix est obligatoire" />
+				<h:message for="prix" style="color:red" />
+				<h:outputLabel value="Remise :"></h:outputLabel>
+				<h:inputText id="remise" value="#{articlesBean.newArticle.discount}" />
+				<h:outputLabel value=""></h:outputLabel>
+				<h:outputLabel value="Photo :"></h:outputLabel>
+				<h:inputText id="photo" value="#{articlesBean.newArticle.pictures}"
+					disabled="true" />
+				<h:outputLabel value=""></h:outputLabel>
+				<h:outputLabel value="Video :"></h:outputLabel>
+				<h:inputText id="video" value="#{articlesBean.newArticle.videos}"
+					disabled="true" />
+				<h:outputLabel value=""></h:outputLabel>
+				<h:outputLabel value="Vendable :"></h:outputLabel>
+				<h:inputText id="vendable"
+					value="#{articlesBean.newArticle.isSellable}" required="true"
+					requiredMessage="La description est obligatoire" />
+				<h:message for="vendable" style="color:red" />
+			</h:panelGrid>
+		</h:panelGroup>
+		<h:commandButton value="Modifier" rendered="#{articlesBean.modify}"
+									action="#{articlesBean.modifyArticle()}" />
+		<h:commandButton value="Ajouter articles" rendered="#{articlesBean.add}"
+			action="#{articlesBean.addArticle()}" />
+	</h:form>
+</body>
+</html>

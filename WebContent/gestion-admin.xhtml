@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Ajout d'article</title>
+</head>
+<body>
+	<ui:composition template="/resources/template/layout.xhtml">
+		<ui:define name="header">
+			<h:form>
+				<h:graphicImage library="images" name="ecommerce.png"
+					style="display: block; margin-left: auto; margin-right: auto"></h:graphicImage>
+				<h:panelGroup>
+					<h:panelGrid columns="8" cellspacing="8" cellpadding="0">
+						<h:commandLink action="change-password.xhtml">
+							<h:outputLabel value="Modifier password"></h:outputLabel>
+						</h:commandLink>
+						<h:outputLabel value=""></h:outputLabel>
+						<h:outputLabel
+							value="Connecté en tantque #{loginBean.connectedUser.nom} #{loginBean.connectedUser.prenom}"></h:outputLabel>
+						<h:outputLabel value=""></h:outputLabel>
+						<h:commandLink action="#{loginBean.logout()}">
+							<h:outputLabel value="Se déconnecter"></h:outputLabel>
+						</h:commandLink>
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+			<h:form>
+				<h:panelGroup>
+					<h:dataTable var="userType" value="#{userBean.userTypes}">
+						<h:column>
+							<f:facet name="header">Nom :</f:facet>
+							<h:outputText value="#{userType.nom}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Prenom :</f:facet>
+							<h:outputText value="#{userType.prenom}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Date de naissance :</f:facet>
+							<h:outputText value="#{userType.dateNaissance}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Roles :</f:facet>
+							<h:outputText value="#{userType.profil}" />
+						</h:column>
+						<h:column>
+							<h:commandButton value="Modifier"
+								action="#{userBean.transfertUser(userType)}" />
+						</h:column>
+						<h:column>
+							<h:commandButton value="Supprimer"
+								action="#{userBean.deleteUserByAdmin(userType)}" />
+						</h:column>
+					</h:dataTable>
+
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:commandButton value="Ajouter utilisateur"
+						action="#{userBean.reset()}" />
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

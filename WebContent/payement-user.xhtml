@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Ajout de moyens de paiement</title>
+</head>
+<body>
+	<ui:composition template="/resources/template/layout.xhtml">
+		<ui:define name="content">
+			<h:form id="payemement">
+				<h:panelGroup>
+					<h:panelGrid columns="1" cellspacing="8" cellpadding="0">
+						<h:outputLabel value="Moyens de paiement :"></h:outputLabel>
+					</h:panelGrid>
+					<h:panelGrid columns="3" cellspacing="8" cellpadding="5">
+						<h:outputLabel value="Nom Prénom :"></h:outputLabel>
+						<h:inputText id="holderName" value="#{cardBean.holderName}"
+							required="true"
+							requiredMessage="Le nom et le prénom sont obligatoire">
+						</h:inputText>
+						<h:message for="holderName" style="color:red"></h:message>
+
+						<h:outputLabel value="Numéro de la carte :"></h:outputLabel>
+						<h:inputText id="numberCard" value="#{cardBean.number}"
+							required="true"
+							requiredMessage="Le numéro de la carte est obligatoire">
+						</h:inputText>
+						<h:message for="numberCard" style="color:red"></h:message>
+
+
+						<h:outputLabel value="Code de sécurité :"></h:outputLabel>
+						<h:inputText id="cvcCode" value="#{cardBean.cvcCode}"
+							required="true"
+							requiredMessage="Le code de sécurité est obligatoire">
+							<f:validateLength minimum="3" maximum="7"></f:validateLength>
+						</h:inputText>
+						<h:message for="cvcCode" style="color:red"></h:message>
+
+						<h:outputLabel value="Date de validitée :"></h:outputLabel>
+						<h:inputText id="expirationdate" pattern="dd/MM/yyyy"
+							value="#{cardBean.expirationDate}" required="true"
+							requiredMessage="La date de validitée est obligatoire">
+							<f:convertDateTime pattern="MM/yyyy" />
+							<f:validator validatorId="checkValidatyCardCredit" />
+						</h:inputText>
+						<h:message for="expirationdate" style="color:red"></h:message>
+					</h:panelGrid>
+					<h:panelGrid columns="2" cellspacing="8" cellpadding="0">
+						<h:commandButton id="ajouter" value="Ajouter"
+							action="#{cardBean.addPayement()}" />
+						<h:commandButton id="update" disabled="#{cardBean.updated}"
+							value="Update" action="#{cardBean.updatePayement()}" />
+						<h:commandButton id="validate" value="Validate"
+							action="#{userBean.validateUser()}" />
+					</h:panelGrid>
+					<p>
+						<h:outputLabel id="errorMessage" value="#{userBean.errorMessage}"
+							style="color:red">
+						</h:outputLabel>
+					</p>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:dataTable value="#{cardBean.payements}" var="p">
+						<h:column>
+							<h:outputText value="#{p.holderName}" />
+						</h:column>
+						<h:column>
+							<h:commandButton id="modifier" disabled="#{cardBean.modified}"
+								value="Modifier" action="#{cardBean.modifyPayement(p)}" />
+						</h:column>
+						<h:column>
+							<h:commandButton id="delete" value="Supprimer"
+								action="#{cardBean.deletePayement(p)}" />
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

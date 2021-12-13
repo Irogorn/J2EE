@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:j="http://java.sun.com/jsp/jstl/core">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Page de article <h:outputText
+		value="#{article.article.titreArticle}" /></title>
+</head>
+<body>
+	<ui:composition template="/resources/template/layout.xhtml">
+		<ui:define name="header">
+			<h:form>
+				<h:graphicImage library="images" name="ecommerce.png"
+					style="display: block; margin-left: auto; margin-right: auto"></h:graphicImage>
+				<h:panelGroup>
+					<h:panelGrid columns="6" cellspacing="8" cellpadding="0">
+						<h:commandLink value="Historique de commandes" />
+						<h:outputLabel value=""></h:outputLabel>
+						<h:commandLink value="Panier (#{cartBean.numberOfArticles})"
+							action="panier.xhtml" />
+						<h:outputLabel value=""></h:outputLabel>
+						<h:commandLink action="#{loginBean.logout()}">
+							<h:outputLabel value="Se déconnecter"></h:outputLabel>
+						</h:commandLink>
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+			<h:form>
+				<h:panelGroup>
+					<h:panelGrid columns="2" cellspacing="8" cellpadding="0">
+						<h:outputLabel value="Article :" />
+						<h:outputText
+							value="#{cartBean.articlesCartTmp.article.titreArticle}" />
+						<h:outputLabel value="Description :" />
+						<h:outputText
+							value="#{cartBean.articlesCartTmp.article.description}" />
+						<h:outputLabel value="Remise % :" />
+						<h:outputText value="#{cartBean.articlesCartTmp.article.discount}" />
+						<h:outputLabel value="Prix unitaire :" />
+						<h:outputText
+							value="#{cartBean.articlesCartTmp.article.prixArticle}" />
+						<h:outputLabel value="Quantité :" />
+						<h:inputText value="#{cartBean.quantity}" />
+					</h:panelGrid>
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:panelGrid columns="2" cellspacing="8" cellpadding="0">
+					<h:button id="back" value="Retour" outcome="gestion-achats.xhtml"/>
+					<h:commandButton value="Valider"
+									action="#{cartBean.addListCart()}" />
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

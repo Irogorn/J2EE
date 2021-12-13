@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Ajout d'adresses</title>
+</head>
+<body>
+	<ui:composition template="/resources/template/layout.xhtml">
+		<ui:define name="content">
+
+			<h:form id="formAddressUser">
+				<h:panelGroup>
+					<h:panelGrid columns="1" cellspacing="8" cellpadding="0">
+						<h:outputLabel value="Adresses :"></h:outputLabel>
+					</h:panelGrid>
+					<h:panelGrid columns="3" cellspacing="8" cellpadding="5">
+						<h:outputLabel value="Numéro :"></h:outputLabel>
+						<h:inputText id="number" value="#{addressBean.number}"
+							required="true" requiredMessage="Le numéro est obligatoire">
+							<f:validateLength minimum="1" maximum="6"></f:validateLength>
+						</h:inputText>
+						<h:message for="number" style="color:red"></h:message>
+
+						<h:outputLabel value="Rue :"></h:outputLabel>
+						<h:inputText id="street" value="#{addressBean.street}"
+							required="true" requiredMessage="La rue est obligatoire">
+						</h:inputText>
+						<h:message for="street" style="color:red"></h:message>
+
+						<h:outputLabel value="Code Postal :"></h:outputLabel>
+						<h:inputText id="zipCode" value="#{addressBean.zipCode}"
+							required="true" requiredMessage="Le code postal est obligatoire">
+							<f:validateLength minimum="5" maximum="7"></f:validateLength>
+						</h:inputText>
+						<h:message for="zipCode" style="color:red"></h:message>
+
+						<h:outputLabel value="Ville :"></h:outputLabel>
+						<h:inputText id="city" value="#{addressBean.city}" required="true"
+							requiredMessage="La ville est obligatoire">
+						</h:inputText>
+						<h:message for="city" style="color:red"></h:message>
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" cellspacing="8" cellpadding="0">
+						<h:commandButton id="ajouter" value="Ajouter"
+							action="#{addressBean.addAddress()}" />
+						<h:commandButton id="update" disabled="#{addressBean.updated}"
+							value="Update" action="#{addressBean.updateAddress()}" />
+						<h:commandButton id="next" value="Suivant"
+							action="#{addressBean.verifyAddress()}" />
+					</h:panelGrid>
+					<p>
+						<h:outputLabel id="errorMessage" value="#{addressBean.errorMessage}"
+							style="color:red">
+						</h:outputLabel>
+					</p>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:dataTable value="#{addressBean.addresses}" var="a">
+						<h:column>
+							<h:outputText value="#{a.wellFormatedAddress()}" />
+						</h:column>
+						<h:column>
+							<h:commandButton id="modifier" disabled="#{addressBean.modified}"
+								value="Modifier" action="#{addressBean.modifyAddress(a)}" />
+						</h:column>
+						<h:column>
+							<h:commandButton id="delete" value="Supprimer"
+								action="#{addressBean.deleteAddress(a)}" />
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

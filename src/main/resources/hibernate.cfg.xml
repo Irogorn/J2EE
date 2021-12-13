@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory >
+	<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+	<property name="hibernate.connection.password">2022</property>
+	<property name="hibernate.connection.username">root</property>
+	<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ecommerce_db</property>
+	<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+	<property name="hibernate.show_sql">true</property>
+	<property name="hibernate.hbm2ddl.auto">update</property>
+<!-- 	<property name="current_session_context_class">thread</property> -->
+	<property name="hibernate.charSet">UTF-8</property>
+   	<mapping class="fr.doranco.ecommerce.entities.pojo.Address"/> 
+	<mapping class="fr.doranco.ecommerce.entities.pojo.Payement"/>
+	<mapping class="fr.doranco.ecommerce.entities.pojo.Article"/>
+	<mapping class="fr.doranco.ecommerce.entities.pojo.Orders"/>
+	<mapping class="fr.doranco.ecommerce.entities.pojo.ArticlesCart"/>
+	<mapping class="fr.doranco.ecommerce.entities.pojo.OrdersLine"/>
+	<mapping class="fr.doranco.ecommerce.entities.pojo.User"/>
+	<mapping class="fr.doranco.ecommerce.entities.pojo.Category"/>
+	<mapping class="fr.doranco.ecommerce.entities.pojo.Commentary"/>
+	<mapping class="fr.doranco.ecommerce.entities.pojo.Params"/>
+ </session-factory>
+</hibernate-configuration>

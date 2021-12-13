@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Page d'accueil</title>
+</head>
+<body>
+	<ui:composition template="/resources/template/layout.xhtml">
+		<ui:define name="content">
+
+			<h:form>
+				<h:panelGroup>
+					<h:panelGrid columns="3" cellspacing="8" cellpadding="0">
+
+						<h:outputLabel value="Genre :"></h:outputLabel>
+						<h:selectOneRadio id="genre" value="#{userBean.userByAdmin.genre}"
+							required="true" requiredMessage="Le genre est obligatoire">
+							<f:selectItem itemLabel="Madame" itemValue="Mme"></f:selectItem>
+							<f:selectItem itemLabel="Monsieur" itemValue="M"></f:selectItem>
+						</h:selectOneRadio>
+						<h:message for="genre" style="color:red"></h:message>
+						
+
+						<h:outputLabel value="Nom :"></h:outputLabel>
+						<h:inputText id="nom" value="#{userBean.userByAdmin.nom}" required="true"
+							requiredMessage="Le nom est obligatoire">
+							<f:validateLength minimum="2" maximum="20"></f:validateLength>
+						</h:inputText>
+						<h:message for="nom" style="color:red"></h:message>
+
+						<h:outputLabel value="Prenom :"></h:outputLabel>
+						<h:inputText id="prenom" value="#{userBean.userByAdmin.prenom}"
+							required="true" requiredMessage="Le prenom est obligatoire">
+							<f:validateLength minimum="2" maximum="20"></f:validateLength>
+						</h:inputText>
+						<h:message for="prenom" style="color:red"></h:message>
+
+						<h:outputLabel value="Date de naissance :"></h:outputLabel>
+						<h:inputText id="dateNaissance" value="#{userBean.userByAdmin.dateNaissance}"
+							required="true"
+							requiredMessage="La date de naissance est obligatoire">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:inputText>
+						<h:message for="dateNaissance" style="color:red"></h:message>
+
+						<h:outputLabel value="Email :"></h:outputLabel>
+						<h:inputText id="email" value="#{userBean.userByAdmin.email}" required="true"
+							requiredMessage="L'email est obligatoire">
+							<f:validator validatorId="checkValidatyEmail" />
+						</h:inputText>
+						<h:message for="email" style="color:red"></h:message>
+						
+
+						<h:outputLabel value="Mot de passe :"></h:outputLabel>
+						<h:inputSecret id="password" value="#{userBean.passwordReturned}"
+							required="true" redisplay="true" requiredMessage="Le mot de passe est obligatoire">
+							<f:validateLength minimum="2" maximum="20"></f:validateLength>
+						</h:inputSecret>
+						<h:message for="password" style="color:red"></h:message>
+
+						<h:outputLabel value="Profil :"></h:outputLabel>
+						<h:selectOneMenu  id="profil"
+							value="#{userBean.userByAdmin.profil}" required="true"
+							requiredMessage="Le profil est obligatoire">
+							<f:selectItems value="#{loginBean.getProfils()}">
+							</f:selectItems>
+						</h:selectOneMenu>
+						<h:message for="profil" style="color:red"></h:message>
+						
+					</h:panelGrid>
+				</h:panelGroup>
+				<h:button value="Retour" outcome="gestion-admin.xhmtl"/>
+				<h:commandButton rendered = "#{userBean.modify}" action="#{userBean.modifyAdmin()}" value="Modifier" />
+				<h:commandButton rendered = "#{userBean.validate}"  action="#{userBean.validateAdmin()}" value="Valider" />
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
